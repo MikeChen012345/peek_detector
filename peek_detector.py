@@ -6,6 +6,7 @@ https://www.geeksforgeeks.org/python-smile-detection-using-opencv/?ref=lbp
 
 import cv2
 import numpy as np
+import argparse
 from turnoff import screen_off, screen_on
 
 # ----------------- Configuration -----------------
@@ -28,6 +29,14 @@ vc = cv2.VideoCapture(0) # Open the camera. # 0 represents the default camera (u
 
 
 if __name__ == "__main__" :
+    # Read the command line arguments
+    parser = argparse.ArgumentParser(description='Detect peeking')
+    parser.add_argument('-q', '--q_quit', action='store_true', help='Allow the user to press q to quit the program. Side effect: a small window will appear when the program is running.')
+    parser.add_argument('-t', '--timeout', type=int, help='The time to wait before turning off the screen')
+    args = parser.parse_args()
+    timeout = args.timeout if args.timeout else timeout
+    q_quit = args.q_quit if args.q_quit else q_quit
+
     if q_quit:
         # Create a blank image to display in the window
         blank_image = np.zeros((1, 1, 1), np.uint8)
